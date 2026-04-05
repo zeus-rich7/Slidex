@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SlideVault — Buyurtma</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy-900:  #0a0f1e;
+    --navy-800:  #0d1528;
+    --navy-700:  #111d36;
+    --navy-600:  #162347;
+    --navy-500:  #1e3260;
+    --border:    #1e2f52;
+    --border-lt: #263966;
+    --white:     #ffffff;
+    --white-90:  rgba(255,255,255,0.90);
+    --white-70:  rgba(255,255,255,0.70);
+    --white-45:  rgba(255,255,255,0.45);
+    --white-20:  rgba(255,255,255,0.20);
+    --white-10:  rgba(255,255,255,0.10);
+    --white-06:  rgba(255,255,255,0.06);
+    --accent:    #4a8cff;
+    --accent-lt: #6aa3ff;
+    --green:     #4ecb8a;
+    --red:       #ff6b6b;
+    --yellow:    #ffd166;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--navy-900);
+    color: var(--white-90);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 72px;
+  }
+
+  /* ─────────────────── HEADER ─────────────────── */
+  header {
+    background: var(--navy-800);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 300;
+    flex-shrink: 0;
+  }
+
+  .logo { font-size: 15px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; }
+  .logo span { color: var(--white-45); font-weight: 400; }
+  .header-meta { font-size: 12px; color: var(--white-45); }
+
+  /* ─────────────────── HERO ─────────────────── */
+  .hero {
+    background: var(--navy-800);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 48px 40px;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 12px; font-weight: 500;
+  }
+
+  .hero-title {
+    font-size: clamp(26px, 4vw, 40px); font-weight: 300; color: var(--white);
+    line-height: 1.15; margin-bottom: 10px; letter-spacing: -0.02em;
+  }
+
+  .hero-title em { font-style: normal; font-weight: 600; }
+
+  .hero-sub {
+    color: var(--white-70); font-size: 14px;
+    max-width: 480px; line-height: 1.65;
+  }
+
+  /* ─────────────────── MAIN ─────────────────── */
+  .main {
+    flex: 1;
+    padding: 36px 48px 40px;
+    max-width: 780px;
+    width: 100%;
+    margin: 0 auto;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* ─────────────────── SECTION LABEL ─────────────────── */
+  .section-label {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--white-45); font-weight: 500; margin-bottom: 14px;
+    margin-top: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ─────────────────── FIELD ─────────────────── */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .field-label {
+    font-size: 12px; font-weight: 500;
+    color: var(--white-70);
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .field-label .required {
+    color: var(--accent);
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  .field-hint {
+    font-size: 11px; color: var(--white-45); margin-top: 4px;
+  }
+
+  /* ─────────────────── INPUTS ─────────────────── */
+  .input, .textarea {
+    width: 100%;
+    padding: 11px 14px;
+    background: var(--navy-700);
+    border: 1px solid var(--border-lt);
+    border-radius: 7px;
+    color: var(--white-90);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+    caret-color: var(--accent-lt);
+  }
+
+  .input::placeholder, .textarea::placeholder { color: var(--white-20); }
+
+  .input:focus, .textarea:focus {
+    border-color: rgba(74,140,255,0.55);
+    box-shadow: 0 0 0 3px rgba(74,140,255,0.09);
+    background: var(--navy-600);
+  }
+
+  .textarea {
+    resize: none;
+    line-height: 1.6;
+    min-height: 82px;
+    overflow: hidden;
+  }
+
+  /* number input special */
+  .input-number-wrap {
+    display: flex;
+    align-items: center;
+    background: var(--navy-700);
+    border: 1px solid var(--border-lt);
+    border-radius: 7px;
+    overflow: hidden;
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+  }
+
+  .input-number-wrap:focus-within {
+    border-color: rgba(74,140,255,0.55);
+    box-shadow: 0 0 0 3px rgba(74,140,255,0.09);
+    background: var(--navy-600);
+  }
+
+  .num-btn {
+    width: 40px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--white-45);
+    font-size: 18px; font-weight: 300;
+    cursor: pointer;
+    transition: color 0.12s, background 0.12s;
+    flex-shrink: 0;
+    user-select: none;
+  }
+
+  .num-btn:hover { color: var(--white); background: var(--white-06); }
+  .num-btn:active { background: var(--white-10); }
+
+  .num-divider {
+    width: 1px; height: 22px;
+    background: var(--border-lt);
+    flex-shrink: 0;
+  }
+
+  #slidesInput {
+    flex: 1;
+    padding: 11px 12px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--white-90);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    caret-color: var(--accent-lt);
+    -moz-appearance: textfield;
+  }
+
+  #slidesInput::-webkit-inner-spin-button,
+  #slidesInput::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+  /* ─────────────────── LANGUAGE SELECTOR ─────────────────── */
+  .lang-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: var(--navy-700);
+    border: 1px solid var(--border-lt);
+    border-radius: 7px;
+    color: var(--white-70);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    flex: 1;
+    justify-content: center;
+    min-width: 80px;
+  }
+
+  .lang-btn:hover {
+    background: var(--navy-600);
+    border-color: var(--border-lt);
+    color: var(--white);
+  }
+
+  .lang-btn.active {
+    background: rgba(74,140,255,0.13);
+    border-color: rgba(74,140,255,0.5);
+    color: var(--white);
+    box-shadow: 0 0 0 2px rgba(74,140,255,0.1);
+  }
+
+  .lang-flag { font-size: 16px; }
+  .lang-name { font-size: 13px; }
+  .lang-full { font-size: 11px; color: var(--white-45); }
+
+  .lang-btn.active .lang-full { color: var(--accent-lt); }
+
+  /* ─────────────────── TWO COLUMNS ─────────────────── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  /* ─────────────────── TOAST ─────────────────── */
+  .toast {
+    position: fixed; bottom: 88px; right: 28px;
+    background: var(--navy-600); border: 1px solid var(--border-lt); color: var(--white-90);
+    padding: 11px 18px; border-radius: 6px; font-size: 13px; z-index: 999;
+    transform: translateY(20px); opacity: 0; transition: transform 0.25s, opacity 0.25s;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  /* ─────────────────── PRICE BAR ─────────────────── */
+  .price-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--navy-800);
+    border-top: 1px solid var(--border-lt);
+    z-index: 200;
+    padding: 0 48px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    box-shadow: 0 -8px 32px rgba(0,0,0,0.4);
+  }
+
+  .price-left {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+
+  .price-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .price-meta-label {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--white-45); font-weight: 500;
+  }
+
+  .price-meta-val {
+    font-size: 13px; font-weight: 500; color: var(--white-70);
+  }
+
+  .price-sep {
+    width: 1px; height: 32px;
+    background: var(--border-lt);
+    flex-shrink: 0;
+  }
+
+  .price-total {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  .price-total-label {
+    font-size: 12px; color: var(--white-45);
+  }
+
+  .price-total-amount {
+    font-size: 26px; font-weight: 600; color: var(--white);
+    letter-spacing: -0.02em;
+    transition: all 0.2s;
+  }
+
+  .price-total-currency {
+    font-size: 13px; color: var(--white-45); font-weight: 400;
+  }
+
+  .price-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 11px 22px;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+
+  .btn-ghost {
+    background: var(--white-06);
+    border-color: var(--border-lt);
+    color: var(--white-70);
+  }
+
+  .btn-ghost:hover { background: var(--white-10); color: var(--white); }
+
+  .btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--white);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-lt);
+    border-color: var(--accent-lt);
+    box-shadow: 0 4px 16px rgba(74,140,255,0.35);
+  }
+
+  .btn:active { transform: scale(0.97); }
+  .btn:disabled { opacity: 0.45; pointer-events: none; }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  /* ─────────────────── MOBILE ─────────────────── */
+  @media (max-width: 640px) {
+    header { padding: 0 16px; }
+    .logo span { display: none; }
+    .header-meta { display: none; }
+
+    .hero { padding: 28px 16px 24px; }
+    .hero-title { font-size: 22px; }
+    .hero-sub { display: none; }
+
+    .main { padding: 20px 16px 40px; }
+
+    .two-col { grid-template-columns: 1fr; }
+
+    .lang-options { gap: 6px; }
+    .lang-btn { padding: 9px 12px; min-width: 0; }
+
+    .price-bar {
+      padding: 12px 16px;
+      height: auto;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
+
+    body { padding-bottom: 140px; }
+
+    .price-left { gap: 14px; flex-wrap: nowrap; }
+    .price-sep { display: none; }
+
+    .price-right { justify-content: flex-end; }
+
+    .toast { right: 16px; left: 16px; bottom: 160px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">SlideVault <span>/ Buyurtma</span></div>
+  <div class="header-meta">Taqdimot yaratish xizmati</div>
+</header>
+
+<div class="hero">
+  <div class="hero-eyebrow">Yangi buyurtma · 2025</div>
+  <h1 class="hero-title">Taqdimot uchun <em>buyurtma</em> bering</h1>
+  <p class="hero-sub">Quyidagi maydonlarni to'ldiring. Narx slaydlar soniga qarab avtomatik hisoblanadi — har bir slayd 1 000 so'm.</p>
+</div>
+
+<div class="main">
+
+  <!-- Asosiy ma'lumotlar -->
+  <div class="section-label">Asosiy ma'lumotlar</div>
+
+  <div class="field">
+    <div class="field-label">
+      Sarlavha <span class="required">*</span>
+    </div>
+    <input class="input" id="titleInput" type="text" placeholder="Taqdimot sarlavhasini kiriting…" oninput="updateBar()" value="{{ title }}" />
+  </div>
+
+  <div class="two-col">
+    <div class="field">
+      <div class="field-label">Muallif <span class="required">*</span></div>
+      <input class="input" id="authorInput" type="text" placeholder="To'liq ism yoki kompaniya…" oninput="updateBar()" value="{{ author }}"/>
+    </div>
+    <div class="field">
+      <div class="field-label">Qabul qiluvchi</div>
+      <input class="input" id="recipientInput" type="text" placeholder="Kim uchun tayyorlanmoqda…" oninput="updateBar()" value="{{ recipient }}"/>
+    </div>
+  </div>
+
+  <!-- Parametrlar -->
+  <div class="section-label">Parametrlar</div>
+
+  <div class="two-col">
+    <div class="field">
+      <div class="field-label">Slaydlar soni <span class="required">*</span></div>
+      <div class="input-number-wrap">
+        <button class="num-btn" onclick="changeSlides(-1)" title="Kamaytirish">−</button>
+        <div class="num-divider"></div>
+        <input type="number" id="slidesInput" value="{{ slide_count }}" min="1" max="500" oninput="updateBar()" />
+        <div class="num-divider"></div>
+        <button class="num-btn" onclick="changeSlides(1)" title="Ko'paytirish">+</button>
+      </div>
+      <div class="field-hint">Minimum 1, maksimum 500 ta slayd</div>
+    </div>
+
+    <div class="field">
+      <div class="field-label">Til <span class="required">*</span></div>
+      <div class="lang-options">
+        <button class="lang-btn active" id="lang-uz" onclick="setLang('uz')">
+          <span class="lang-flag">🇺🇿</span>
+          <div>
+            <div class="lang-name">O'zbekcha</div>
+            <div class="lang-full">UZ</div>
+          </div>
+        </button>
+        <button class="lang-btn" id="lang-ru" onclick="setLang('ru')">
+          <span class="lang-flag">🇷🇺</span>
+          <div>
+            <div class="lang-name">Ruscha</div>
+            <div class="lang-full">RU</div>
+          </div>
+        </button>
+        <button class="lang-btn" id="lang-en" onclick="setLang('en')">
+          <span class="lang-flag">🇬🇧</span>
+          <div>
+            <div class="lang-name">Inglizcha</div>
+            <div class="lang-full">EN</div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Price Bar -->
+<div class="price-bar">
+  <div class="price-left">
+
+    <div class="price-meta">
+      <div class="price-meta-label">Slaydlar</div>
+      <div class="price-meta-val" id="barSlides">10 ta</div>
+    </div>
+
+    <div class="price-sep"></div>
+
+    <div class="price-meta">
+      <div class="price-meta-label">Narx (1 slayd)</div>
+      <div class="price-meta-val">{{ price_per_slide }} so'm</div>
+    </div>
+
+    <div class="price-sep"></div>
+
+    <div class="price-total">
+      <span class="price-total-label">Jami:</span>
+      <span class="price-total-amount" id="barTotal">10 000</span>
+      <span class="price-total-currency">so'm</span>
+    </div>
+
+  </div>
+
+  <div class="price-right">
+    <button class="btn btn-ghost" onclick="resetForm()">Tozalash</button>
+    <button class="btn btn-primary" id="submitBtn" onclick="submitOrder()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      Buyurtma berish
+    </button>
+  </div>
+</div>
+
+<div class="toast" id="toast">
+  <span id="toastIcon"></span>
+  <span id="toastMsg"></span>
+</div>
+
+<script>
+  const PRICE_PER_SLIDE = {{ price_per_slide }};
+  let selectedLang = '{{ lang }}';
+  setLang(selectedLang);
+  /* ─── Language ─── */
+  function setLang(lang) {
+    selectedLang = lang;
+    ['uz', 'ru', 'en'].forEach(l => {
+      document.getElementById('lang-' + l).classList.toggle('active', l === lang);
+    });
+  }
+
+  /* ─── Slides +/- ─── */
+  function changeSlides(delta) {
+    const input = document.getElementById('slidesInput');
+    let val = parseInt(input.value) || 0;
+    val = Math.min(500, Math.max(1, val + delta));
+    input.value = val;
+    updateBar();
+  }
+
+  /* ─── Update price bar ─── */
+  function updateBar() {
+    const slides = Math.min(500, Math.max(1, parseInt(document.getElementById('slidesInput').value) || 0));
+    const total  = slides * PRICE_PER_SLIDE;
+
+    document.getElementById('barSlides').textContent = slides + ' ta';
+    document.getElementById('barTotal').textContent  = total.toLocaleString('uz-UZ');
+  }
+
+  /* ─── Reset ─── */
+  function resetForm() {
+    document.getElementById('titleInput').value     = '';
+    document.getElementById('authorInput').value    = '';
+    document.getElementById('recipientInput').value = '';
+    document.getElementById('slidesInput').value    = '10';
+    setLang('{{ lang }}');
+    updateBar();
+    showToast('✓', 'Forma tozalandi');
+  }
+
+  /* ─── Submit ─── */
+  async function submitOrder() {
+    const title     = document.getElementById('titleInput').value.trim();
+    const author    = document.getElementById('authorInput').value.trim();
+    const slides    = parseInt(document.getElementById('slidesInput').value) || 0;
+    const presentation_id = Number(window.location.href.split('/').at(5).split('#').at(0))
+
+    if (!title)  { showToast('⚠️', 'Sarlavhani kiriting'); document.getElementById('titleInput').focus(); return; }
+    if (!author) { showToast('⚠️', 'Muallifni kiriting');  document.getElementById('authorInput').focus(); return; }
+    if (slides < 1) { showToast('⚠️', 'Slaydlar sonini kiriting'); return; }
+
+    const btn = document.getElementById('submitBtn');
+    const originalHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="animation:spin 0.8s linear infinite"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg> Yuborilmoqda…`;
+
+    const payload = {
+      presentation_id,
+      title,
+      author,
+      recipient: document.getElementById('recipientInput').value.trim(),
+      slides,
+      language:  selectedLang
+    };
+
+    try {
+      const res = await fetch('save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error('Server xatosi: ' + res.status);
+
+      btn.innerHTML = `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Yuborildi!`;
+      btn.style.background    = '#2a7a50';
+      btn.style.borderColor   = '#2a7a50';
+      showToast('✓', 'Buyurtma muvaffaqiyatli yuborildi!');
+
+    } catch (err) {
+      btn.innerHTML = `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> Xato`;
+      btn.style.background  = 'rgba(255,107,107,0.15)';
+      btn.style.borderColor = 'rgba(255,107,107,0.5)';
+      btn.style.color       = 'var(--red)';
+      showToast('❌', 'Xato: ' + err.message);
+    }
+
+    setTimeout(() => {
+      btn.innerHTML         = originalHTML;
+      btn.style.background  = '';
+      btn.style.borderColor = '';
+      btn.style.color       = '';
+      btn.disabled          = false;
+    }, 2800);
+  }
+
+  /* ─── Toast ─── */
+  let toastTimer;
+  function showToast(icon, msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toastIcon').textContent = icon;
+    document.getElementById('toastMsg').textContent  = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+  }
+
+  /* ─── Init ─── */
+  updateBar();
+</script>
+</body>
+</html>

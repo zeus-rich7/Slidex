@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ logo }} — Ma'lumotlar Muharriri</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy-900:  #0a0f1e;
+    --navy-800:  #0d1528;
+    --navy-700:  #111d36;
+    --navy-600:  #162347;
+    --navy-500:  #1e3260;
+    --border:    #1e2f52;
+    --border-lt: #263966;
+    --white:     #ffffff;
+    --white-90:  rgba(255,255,255,0.90);
+    --white-70:  rgba(255,255,255,0.70);
+    --white-45:  rgba(255,255,255,0.45);
+    --white-20:  rgba(255,255,255,0.20);
+    --white-10:  rgba(255,255,255,0.10);
+    --white-06:  rgba(255,255,255,0.06);
+    --accent:    #4a8cff;
+    --accent-lt: #6aa3ff;
+    --green:     #4ecb8a;
+    --red:       #ff6b6b;
+    --yellow:    #ffd166;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--navy-900);
+    color: var(--white-90);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ─────────────────── HEADER ─────────────────── */
+  header {
+    background: var(--navy-800);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 300;
+    flex-shrink: 0;
+  }
+
+  .logo { font-size: 15px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; }
+  .logo span { color: var(--white-45); font-weight: 400; }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .header-meta { font-size: 12px; color: var(--white-45); }
+
+  .status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--white-45);
+    padding: 5px 10px;
+    background: var(--white-06);
+    border: 1px solid var(--border-lt);
+    border-radius: 6px;
+  }
+
+  .status-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 6px var(--green);
+    animation: pulse-dot 2s infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ─────────────────── MAIN LAYOUT ─────────────────── */
+  .main-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 48px 40px;
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    align-self: stretch;
+  }
+
+  /* ─────────────────── PAGE HEADER ─────────────────── */
+  .page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .page-header-left {}
+
+  .page-eyebrow {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 8px; font-weight: 500;
+  }
+
+  .page-title {
+    font-size: 26px; font-weight: 300; color: var(--white);
+    letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 6px;
+  }
+
+  .page-title em { font-style: normal; font-weight: 600; }
+
+  .page-sub { font-size: 13px; color: var(--white-45); line-height: 1.55; max-width: 420px; }
+
+  .header-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  /* ─────────────────── BUTTONS ─────────────────── */
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+
+  .btn-ghost {
+    background: var(--white-06);
+    border-color: var(--border-lt);
+    color: var(--white-70);
+  }
+
+  .btn-ghost:hover {
+    background: var(--white-10);
+    color: var(--white);
+    border-color: var(--border-lt);
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--white);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-lt);
+    border-color: var(--accent-lt);
+    box-shadow: 0 4px 16px rgba(74,140,255,0.3);
+  }
+
+  .btn-danger {
+    background: rgba(255,107,107,0.1);
+    border-color: rgba(255,107,107,0.3);
+    color: var(--red);
+  }
+
+  .btn-danger:hover {
+    background: rgba(255,107,107,0.18);
+    border-color: rgba(255,107,107,0.5);
+  }
+
+  .btn:active { transform: scale(0.97); }
+
+  .btn svg { flex-shrink: 0; }
+
+  /* ─────────────────── TOOLBAR ─────────────────── */
+  .editor-toolbar {
+    background: var(--navy-700);
+    border: 1px solid var(--border);
+    border-radius: 8px 8px 0 0;
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    height: 44px;
+    flex-wrap: wrap;
+    overflow: hidden;
+  }
+
+  .toolbar-sep {
+    width: 1px;
+    height: 20px;
+    background: var(--border-lt);
+    margin: 0 6px;
+    flex-shrink: 0;
+  }
+
+  .toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .tb-btn {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 5px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--white-70);
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 600;
+    transition: all 0.12s;
+    flex-shrink: 0;
+  }
+
+  .tb-btn:hover {
+    background: var(--white-10);
+    color: var(--white);
+    border-color: var(--border-lt);
+  }
+
+  .tb-btn.active {
+    background: rgba(74,140,255,0.15);
+    border-color: rgba(74,140,255,0.4);
+    color: var(--accent-lt);
+  }
+
+  .tb-btn:active { transform: scale(0.92); }
+
+  .toolbar-label {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--white-45); font-weight: 500; padding: 0 4px;
+    white-space: nowrap;
+  }
+
+  /* font size select */
+  .tb-select {
+    height: 28px;
+    padding: 0 8px;
+    background: var(--white-06);
+    border: 1px solid var(--border-lt);
+    border-radius: 5px;
+    color: var(--white-70);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    min-width: 54px;
+  }
+
+  .tb-select option { background: #111d36; color: #e8e8e8; }
+
+  /* ─────────────────── EDITOR CONTAINER ─────────────────── */
+  .editor-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .editor-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .editor-label {
+    font-size: 12px; font-weight: 600; color: var(--white-70);
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+
+  .editor-stats {
+    display: flex;
+    gap: 16px;
+  }
+
+  .stat-pill {
+    font-size: 11px;
+    color: var(--white-45);
+    background: var(--white-06);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-family: 'JetBrains Mono', monospace;
+    transition: color 0.15s;
+  }
+
+  .stat-pill.highlight { color: var(--accent-lt); border-color: rgba(74,140,255,0.3); }
+
+  /* ─────────────────── TEXTAREA ─────────────────── */
+  .editor-wrap {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #mainEditor {
+    flex: 1;
+    width: 100%;
+    min-height: 420px;
+    padding: 22px 26px;
+    background: var(--navy-800);
+    border: 1px solid var(--border-lt);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    color: var(--white-90);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.75;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+    caret-color: var(--accent-lt);
+  }
+
+  #mainEditor::placeholder {
+    color: var(--white-20);
+    font-style: italic;
+  }
+
+  #mainEditor:focus {
+    border-color: rgba(74,140,255,0.5);
+    box-shadow: 0 0 0 3px rgba(74,140,255,0.08);
+    background: var(--navy-700);
+  }
+
+  /* ─────────────────── FIND & REPLACE ─────────────────── */
+  .find-bar {
+    position: absolute;
+    top: 12px; right: 12px;
+    background: var(--navy-600);
+    border: 1px solid var(--border-lt);
+    border-radius: 8px;
+    padding: 12px 14px;
+    width: 320px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    z-index: 10;
+    display: none;
+    animation: slideIn 0.18s ease;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .find-bar.open { display: block; }
+
+  .find-bar-title {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--white-45); font-weight: 500; margin-bottom: 10px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .find-close {
+    background: none; border: none; color: var(--white-45); cursor: pointer;
+    font-size: 14px; padding: 0; line-height: 1;
+  }
+
+  .find-close:hover { color: var(--white); }
+
+  .find-row {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 7px;
+    align-items: center;
+  }
+
+  .find-input {
+    flex: 1;
+    padding: 7px 10px;
+    background: var(--white-06);
+    border: 1px solid var(--border-lt);
+    border-radius: 5px;
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    outline: none;
+    transition: border-color 0.12s;
+  }
+
+  .find-input:focus { border-color: var(--accent); }
+  .find-input::placeholder { color: var(--white-45); }
+
+  .find-btn {
+    padding: 6px 10px;
+    background: var(--white-06);
+    border: 1px solid var(--border-lt);
+    border-radius: 5px;
+    color: var(--white-70);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 500;
+    cursor: pointer;
+    transition: all 0.12s;
+    white-space: nowrap;
+  }
+
+  .find-btn:hover { background: var(--white-10); color: var(--white); }
+
+  .find-btn.replace-btn {
+    background: rgba(74,140,255,0.1);
+    border-color: rgba(74,140,255,0.3);
+    color: var(--accent-lt);
+  }
+
+  .find-btn.replace-btn:hover { background: rgba(74,140,255,0.18); }
+
+  .find-count {
+    font-size: 11px; color: var(--white-45); text-align: right; margin-top: 4px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ─────────────────── BOTTOM BAR ─────────────────── */
+  .bottom-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .bottom-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .bottom-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ─────────────────── TOAST ─────────────────── */
+  .toast {
+    position: fixed; bottom: 28px; right: 28px;
+    background: var(--navy-600); border: 1px solid var(--border-lt); color: var(--white-90);
+    padding: 11px 18px; border-radius: 6px; font-size: 13px; z-index: 999;
+    transform: translateY(60px); opacity: 0; transition: transform 0.25s, opacity 0.25s;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast-icon { font-size: 15px; }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-lt); border-radius: 3px; }
+
+  /* ─────────────────── MOBILE ─────────────────── */
+  @media (max-width: 640px) {
+    header {
+      padding: 0 16px;
+      height: 52px;
+    }
+
+    .header-meta { display: none; }
+
+    .logo span { display: none; }
+
+    .status-indicator {
+      padding: 4px 8px;
+      font-size: 11px;
+    }
+
+    .main-wrapper {
+      padding: 16px 16px 32px;
+      gap: 14px;
+    }
+
+    .page-header {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .page-title { font-size: 20px; }
+    .page-sub { display: none; }
+    .page-eyebrow { margin-bottom: 4px; }
+
+    .header-actions {
+      width: 100%;
+      justify-content: flex-start;
+    }
+
+    .btn {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+
+    /* toolbar: allow wrapping into 2 rows */
+    .editor-toolbar {
+      height: auto;
+      padding: 6px 10px;
+      gap: 4px;
+      flex-wrap: wrap;
+      row-gap: 4px;
+    }
+
+    .toolbar-label { display: none; }
+
+    .toolbar-sep {
+      display: none;
+    }
+
+    .tb-btn {
+      width: 36px; height: 36px;
+      font-size: 13px;
+    }
+
+    .editor-label-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .editor-stats {
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .stat-pill { font-size: 10px; padding: 2px 6px; }
+
+    #mainEditor {
+      min-height: 300px;
+      padding: 14px 14px;
+      font-size: 15px;
+      line-height: 1.7;
+      resize: none;
+    }
+
+    .find-bar {
+      width: calc(100% - 24px);
+      right: 12px;
+      left: 12px;
+    }
+
+    .bottom-bar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .bottom-left { gap: 6px; }
+
+    .bottom-right { align-self: flex-end; }
+
+    .toast {
+      bottom: 16px;
+      right: 16px;
+      left: 16px;
+      font-size: 12px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .header-actions { gap: 6px; }
+    .btn { padding: 7px 10px; }
+    .tb-btn { width: 34px; height: 34px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">{{ logo }} <span>/ Ma'lumotlar Muharriri</span></div>
+  <div class="header-right">
+    <div class="header-meta">Matn boshqaruv tizimi</div>
+    <div class="status-indicator">
+      <div class="status-dot"></div>
+      <span id="autoSaveStatus">Saqlandi</span>
+    </div>
+  </div>
+</header>
+
+<div class="main-wrapper">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-eyebrow">Muharrir · v1.0</div>
+      <h1 class="page-title">Foydalanish uchun <em>ma'lumotlar</em></h1>
+      <p class="page-sub">Matnni kiriting, tahrirlang va boshqaring. Barcha o'zgarishlar avtomatik saqlanadi.</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-ghost" onclick="copyAll()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+        Nusxa
+      </button>
+      <button class="btn btn-danger" onclick="clearAll()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="m19 6-.867 12.142A2 2 0 0 1 16.138 20H7.862a2 2 0 0 1-1.995-1.858L5 6"/><path d="m10 11 0 6"/><path d="m14 11 0 6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+        Tozalash
+      </button>
+      <button class="btn btn-primary" onclick="saveContent()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Saqlash
+      </button>
+    </div>
+  </div>
+
+  <!-- Editor Area -->
+  <div class="editor-container">
+    <div class="editor-label-row">
+      <div class="editor-label">Foydalanish uchun ma'lumotlar</div>
+      <div class="editor-stats">
+        <div class="stat-pill" id="statChars">0 belgi</div>
+        <div class="stat-pill" id="statWords">0 so'z</div>
+        <div class="stat-pill" id="statLines">0 qator</div>
+        <div class="stat-pill" id="statSel" style="display:none;"></div>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="editor-toolbar">
+
+      <!-- Text formatting -->
+      <div class="toolbar-group">
+        <span class="toolbar-label">Uslub</span>
+        <button class="tb-btn" title="Qalin (Ctrl+B)" onclick="formatText('bold')"><b>B</b></button>
+        <button class="tb-btn" title="Kursiv (Ctrl+I)" onclick="formatText('italic')"><i>I</i></button>
+        <button class="tb-btn" title="Tagiga chiziq (Ctrl+U)" onclick="formatText('underline')"><u>U</u></button>
+        <button class="tb-btn" title="O'rtasiga chiziq" onclick="formatText('strikethrough')"><s>S</s></button>
+      </div>
+
+      <div class="toolbar-sep"></div>
+
+      <!-- CASE transform -->
+      <div class="toolbar-group">
+        <span class="toolbar-label">Harf</span>
+        <button class="tb-btn" title="Katta harflarga" onclick="transformCase('upper')" style="font-size:10px;">AA</button>
+        <button class="tb-btn" title="Kichik harflarga" onclick="transformCase('lower')" style="font-size:10px;">aa</button>
+        <button class="tb-btn" title="Har so'z bosh harf" onclick="transformCase('title')" style="font-size:10px;">Aa</button>
+      </div>
+
+      <div class="toolbar-sep"></div>
+
+      <!-- Indentation -->
+      <div class="toolbar-group">
+        <span class="toolbar-label">Chegarish</span>
+        <button class="tb-btn" title="Chap chekka" onclick="insertLine('list')">≡</button>
+        <button class="tb-btn" title="Tab qo'shish (Tab)" onclick="insertTab()">→|</button>
+        <button class="tb-btn" title="Bo'sh qator qo'shish" onclick="insertBlankLine()">↵</button>
+      </div>
+
+      <div class="toolbar-sep"></div>
+
+      <!-- Line tools -->
+      <div class="toolbar-group">
+        <span class="toolbar-label">Qator</span>
+        <button class="tb-btn" title="Dublikat qilish" onclick="duplicateLine()">⧉</button>
+        <button class="tb-btn" title="Qatorni o'chirish" onclick="deleteLine()">⌫</button>
+        <button class="tb-btn" title="Saralash (A-Z)" onclick="sortLines()">↕</button>
+      </div>
+
+      <div class="toolbar-sep"></div>
+
+      <!-- Find & Replace -->
+      <div class="toolbar-group">
+        <span class="toolbar-label">Izlash</span>
+        <button class="tb-btn" title="Topish va almashtirish (Ctrl+H)" onclick="toggleFindBar()">⌕</button>
+      </div>
+
+      <div class="toolbar-sep"></div>
+
+      <!-- Statistics -->
+      <div class="toolbar-group">
+        <span class="toolbar-label">Ko'rish</span>
+        <button class="tb-btn" title="Raqamli qatorlar" id="lineNumBtn" onclick="toggleLineNumbers()">№</button>
+        <button class="tb-btn" title="Matnni tozalash" onclick="trimWhitespace()">⌧</button>
+      </div>
+    </div>
+
+    <!-- Textarea wrap -->
+    <div class="editor-wrap">
+      <textarea id="mainEditor"
+        placeholder="Matnni bu yerga kiriting…&#10;&#10;Bu muhit orqali taqdimotingiz uchun kerakli barcha ma'lumotlarni yozing, tahrirlang va boshqaring."
+        spellcheck="true"
+        oninput="onEditorInput()"
+        onkeydown="onEditorKeyDown(event)"
+        onselect="onEditorSelect()"
+        onmouseup="onEditorSelect()"
+      >{{ reference_text }}</textarea>
+
+      <!-- Find & Replace Bar -->
+      <div class="find-bar" id="findBar">
+        <div class="find-bar-title">
+          <span>🔍 Topish va almashtirish</span>
+          <button class="find-close" onclick="toggleFindBar()">✕</button>
+        </div>
+        <div class="find-row">
+          <input class="find-input" id="findInput" placeholder="Topish…" oninput="doFind()" />
+          <button class="find-btn" onclick="findPrev()">↑</button>
+          <button class="find-btn" onclick="findNext()">↓</button>
+        </div>
+        <div class="find-row">
+          <input class="find-input" id="replaceInput" placeholder="Almashtirish…" />
+          <button class="find-btn replace-btn" onclick="replaceOne()">1ta</button>
+          <button class="find-btn replace-btn" onclick="replaceAll()">Hammasi</button>
+        </div>
+        <div class="find-count" id="findCount"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="bottom-bar">
+    <div class="bottom-left">
+      <button class="btn btn-ghost" onclick="insertDate()">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Sana
+      </button>
+      <button class="btn btn-ghost" onclick="insertSeparator()">— Ajratgich</button>
+    </div>
+    <div class="bottom-right">
+      <span style="font-size:12px;color:var(--white-45);" id="cursorPos">Qator 1, Ustun 1</span>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toastIcon">✓</span>
+  <span id="toastMsg"></span>
+</div>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+  const editor = document.getElementById('mainEditor');
+  let autoSaveTimer = null;
+  let findMatches = [];
+  let findIndex = 0;
+  let lineNumbersOn = false;
+  let webapp = window.Telegram.WebApp;
+
+  webapp.expand();
+
+  /* ─── Stats ─── */
+  function updateStats() {
+    const val = editor.value;
+    const chars = val.length;
+    const words = val.trim() === '' ? 0 : val.trim().split(/\s+/).length;
+    const lines = val === '' ? 1 : val.split('\n').length;
+
+    document.getElementById('statChars').textContent = chars.toLocaleString() + ' belgi';
+    document.getElementById('statWords').textContent = words.toLocaleString() + ' so\'z';
+    document.getElementById('statLines').textContent = lines + ' qator';
+
+    // cursor pos
+    const before = val.substring(0, editor.selectionStart);
+    const lineNum = before.split('\n').length;
+    const colNum  = before.split('\n').pop().length + 1;
+    document.getElementById('cursorPos').textContent = `Qator ${lineNum}, Ustun ${colNum}`;
+  }
+
+  function onEditorSelect() {
+    const sel = editor.value.substring(editor.selectionStart, editor.selectionEnd);
+    const statSel = document.getElementById('statSel');
+    if (sel.length > 0) {
+      statSel.textContent = sel.length + ' ta tanlangan';
+      statSel.style.display = '';
+      statSel.classList.add('highlight');
+    } else {
+      statSel.style.display = 'none';
+      statSel.classList.remove('highlight');
+    }
+    updateStats();
+  }
+
+  function onEditorInput() {
+    updateStats();
+    scheduleAutoSave();
+  }
+
+  /* ─── Auto-save ─── */
+  function scheduleAutoSave() {
+    clearTimeout(autoSaveTimer);
+    document.getElementById('autoSaveStatus').textContent = 'Saqlanmoqda…';
+    autoSaveTimer = setTimeout(() => saveToAPI(false), 1000);
+  }
+
+  /* ─── API save ─── */
+  async function saveToAPI(manual = true) {
+    const val = editor.value;
+    const presentation_id = Number(window.location.href.split('/').at(5).split('#').at(0))
+    try {
+      const res = await fetch('save-content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          presentation_id: presentation_id,
+          content: val
+        })
+      });
+      if (!res.ok) throw new Error('Server error: ' + res.status);
+      document.getElementById('autoSaveStatus').textContent = 'Saqlandi';
+      if (manual) showToast('✓', 'Muvaffaqiyatli saqlandi!');
+    } catch (err) {
+      document.getElementById('autoSaveStatus').textContent = 'Xato!';
+      if (manual) showToast('❌', 'Saqlashda xato: ' + err.message);
+    }
+  }
+
+  /* ─── Manual save ─── */
+  function saveContent() {
+    const val = editor.value;
+    if (!val.trim()) { showToast('⚠️', 'Matn bo\'sh!'); return; }
+    saveToAPI(true);
+    webapp.close();
+  }
+
+
+  /* ─── Text formatting ─── */
+  function formatText(type) {
+    const start = editor.selectionStart;
+    const end   = editor.selectionEnd;
+    const sel   = editor.value.substring(start, end);
+
+    if (!sel) { showToast('ℹ️', 'Avval matn tanlang'); return; }
+
+    let result;
+    const markers = { bold:'**', italic:'_', underline:'__', strikethrough:'~~' };
+    const m = markers[type];
+    if (sel.startsWith(m) && sel.endsWith(m)) {
+      result = sel.slice(m.length, -m.length);
+    } else {
+      result = m + sel + m;
+    }
+
+    editor.setRangeText(result, start, end, 'select');
+    updateStats();
+  }
+
+  /* ─── Case transform ─── */
+  function transformCase(mode) {
+    const start = editor.selectionStart;
+    const end   = editor.selectionEnd;
+    let sel   = editor.value.substring(start, end);
+    const fullText = !sel;
+
+    if (fullText) sel = editor.value;
+
+    let result;
+    if (mode === 'upper') result = sel.toUpperCase();
+    else if (mode === 'lower') result = sel.toLowerCase();
+    else result = sel.replace(/\b\w/g, c => c.toUpperCase());
+
+    if (fullText) {
+      editor.value = result;
+    } else {
+      editor.setRangeText(result, start, end, 'select');
+    }
+    updateStats();
+    showToast('✓', 'Harf o\'zgardi');
+  }
+
+  /* ─── Insert helpers ─── */
+  function insertAtCursor(text) {
+    const start = editor.selectionStart;
+    editor.setRangeText(text, start, editor.selectionEnd, 'end');
+    updateStats();
+  }
+
+  function insertDate() {
+    const now = new Date();
+    const d = now.toLocaleDateString('uz-UZ', { day:'2-digit', month:'2-digit', year:'numeric' });
+    const t = now.toLocaleTimeString('uz-UZ', { hour:'2-digit', minute:'2-digit' });
+    insertAtCursor(`[${d} ${t}]`);
+    showToast('📅', 'Sana qo\'shildi');
+  }
+
+  function insertSeparator() {
+    insertAtCursor('\n' + '─'.repeat(40) + '\n');
+    showToast('✓', 'Ajratgich qo\'shildi');
+  }
+
+  function insertBlankLine() {
+    insertAtCursor('\n');
+  }
+
+  function insertTab() {
+    insertAtCursor('\t');
+  }
+
+  function insertLine(type) {
+    const start = editor.selectionStart;
+    const lineStart = editor.value.lastIndexOf('\n', start - 1) + 1;
+    editor.setRangeText('• ', lineStart, lineStart, 'end');
+    updateStats();
+  }
+
+  /* ─── Line tools ─── */
+  function getCurrentLine() {
+    const pos = editor.selectionStart;
+    const val = editor.value;
+    const lineStart = val.lastIndexOf('\n', pos - 1) + 1;
+    const lineEnd   = val.indexOf('\n', pos);
+    return {
+      start: lineStart,
+      end: lineEnd === -1 ? val.length : lineEnd,
+      text: val.substring(lineStart, lineEnd === -1 ? val.length : lineEnd)
+    };
+  }
+
+  function duplicateLine() {
+    const { start, end, text } = getCurrentLine();
+    const insert = '\n' + text;
+    editor.setRangeText(insert, end, end, 'end');
+    updateStats();
+    showToast('⧉', 'Qator nusxa ko\'landi');
+  }
+
+  function deleteLine() {
+    const { start, end } = getCurrentLine();
+    const val = editor.value;
+    let delStart = start, delEnd = end;
+    if (val[end] === '\n') delEnd = end + 1;
+    else if (start > 0 && val[start - 1] === '\n') delStart = start - 1;
+    editor.setRangeText('', delStart, delEnd, 'start');
+    updateStats();
+    showToast('⌫', 'Qator o\'chirildi');
+  }
+
+  function sortLines() {
+    const val = editor.value;
+    if (!val.trim()) return;
+    const lines = val.split('\n');
+    lines.sort((a, b) => a.localeCompare(b, 'uz'));
+    editor.value = lines.join('\n');
+    updateStats();
+    showToast('↕', 'Qatorlar saralandi (A-Z)');
+  }
+
+  function trimWhitespace() {
+    editor.value = editor.value.split('\n').map(l => l.trimEnd()).join('\n').trim();
+    updateStats();
+    showToast('⌧', 'Keraksiz bo\'shliqlar tozalandi');
+  }
+
+  /* ─── Copy / Clear / Download ─── */
+  function copyAll() {
+    if (!editor.value) { showToast('⚠️', 'Nusxa olish uchun matn yo\'q'); return; }
+    navigator.clipboard.writeText(editor.value).then(() => showToast('📋', 'Kopyalandi!')).catch(() => {
+      editor.select();
+      document.execCommand('copy');
+      showToast('📋', 'Nusxalandi!');
+    });
+  }
+
+  function clearAll() {
+    if (!editor.value) return;
+    editor.value = '';
+    updateStats();
+    showToast('🗑', 'Tozalandi');
+  }
+
+
+  /* ─── Line numbers toggle ─── */
+  function toggleLineNumbers() {
+    lineNumbersOn = !lineNumbersOn;
+    document.getElementById('lineNumBtn').classList.toggle('active', lineNumbersOn);
+    if (lineNumbersOn) {
+      editor.style.fontFamily = "'JetBrains Mono', monospace";
+      editor.style.fontSize   = '14px';
+      editor.style.lineHeight = '1.8';
+    } else {
+      editor.style.fontFamily = "'Inter', sans-serif";
+      editor.style.fontSize   = '15px';
+      editor.style.lineHeight = '1.75';
+    }
+    showToast(lineNumbersOn ? '№' : '⊘', lineNumbersOn ? 'Mono rejim yoqildi' : 'Normal rejim');
+  }
+
+  /* ─── Find & Replace ─── */
+  function toggleFindBar() {
+    const bar = document.getElementById('findBar');
+    bar.classList.toggle('open');
+    if (bar.classList.contains('open')) {
+      const sel = editor.value.substring(editor.selectionStart, editor.selectionEnd);
+      if (sel) document.getElementById('findInput').value = sel;
+      document.getElementById('findInput').focus();
+      doFind();
+    }
+  }
+
+  function doFind() {
+    const query = document.getElementById('findInput').value;
+    const count = document.getElementById('findCount');
+    if (!query) { count.textContent = ''; findMatches = []; return; }
+
+    const val = editor.value;
+    const regex = new RegExp(query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+    findMatches = [];
+    let m;
+    while ((m = regex.exec(val)) !== null) findMatches.push(m.index);
+    count.textContent = findMatches.length > 0
+      ? `${findMatches.length} ta natija topildi`
+      : 'Hech narsa topilmadi';
+    findIndex = 0;
+    if (findMatches.length) highlightFindMatch();
+  }
+
+  function highlightFindMatch() {
+    if (!findMatches.length) return;
+    const query = document.getElementById('findInput').value;
+    const pos = findMatches[findIndex];
+    editor.focus();
+    editor.setSelectionRange(pos, pos + query.length);
+    document.getElementById('findCount').textContent = `${findIndex + 1} / ${findMatches.length}`;
+  }
+
+  function findNext() { if (!findMatches.length) return; findIndex = (findIndex + 1) % findMatches.length; highlightFindMatch(); }
+  function findPrev() { if (!findMatches.length) return; findIndex = (findIndex - 1 + findMatches.length) % findMatches.length; highlightFindMatch(); }
+
+  function replaceOne() {
+    const q = document.getElementById('findInput').value;
+    const r = document.getElementById('replaceInput').value;
+    if (!q || !findMatches.length) return;
+    const pos = findMatches[findIndex];
+    editor.setRangeText(r, pos, pos + q.length, 'end');
+    updateStats(); doFind();
+    showToast('↔', '1 ta almashtirildi');
+  }
+
+  function replaceAll() {
+    const q = document.getElementById('findInput').value;
+    const r = document.getElementById('replaceInput').value;
+    if (!q) return;
+    const regex = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+    const count = (editor.value.match(regex) || []).length;
+    editor.value = editor.value.replace(regex, r);
+    updateStats(); doFind();
+    showToast('↔', `${count} ta almashtirildi`);
+  }
+
+  /* ─── Keyboard shortcuts ─── */
+  function onEditorKeyDown(e) {
+    // Tab → insert spaces
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      insertAtCursor('    ');
+    }
+    // Ctrl+H → find/replace
+    if (e.ctrlKey && e.key === 'h') {
+      e.preventDefault();
+      toggleFindBar();
+    }
+    // Ctrl+S → save
+    if (e.ctrlKey && e.key === 's') {
+      e.preventDefault();
+      saveContent();
+    }
+    // Ctrl+D → duplicate line
+    if (e.ctrlKey && e.key === 'd') {
+      e.preventDefault();
+      duplicateLine();
+    }
+    updateStats();
+  }
+
+  /* ─── Toast ─── */
+  let toastTimer;
+  function showToast(icon, msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toastIcon').textContent = icon;
+    document.getElementById('toastMsg').textContent  = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 3200);
+  }
+
+  /* ─── Init ─── */
+  updateStats();
+</script>
+</body>
+</html>

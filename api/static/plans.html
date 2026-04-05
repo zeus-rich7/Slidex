@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ logo }} — Rejalar</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy-900:  #0a0f1e;
+    --navy-800:  #0d1528;
+    --navy-700:  #111d36;
+    --navy-600:  #162347;
+    --navy-500:  #1e3260;
+    --border:    #1e2f52;
+    --border-lt: #263966;
+    --white:     #ffffff;
+    --white-90:  rgba(255,255,255,0.90);
+    --white-70:  rgba(255,255,255,0.70);
+    --white-45:  rgba(255,255,255,0.45);
+    --white-20:  rgba(255,255,255,0.20);
+    --white-10:  rgba(255,255,255,0.10);
+    --white-06:  rgba(255,255,255,0.06);
+    --accent:    #4a8cff;
+    --accent-lt: #6aa3ff;
+    --red:       #ff6b6b;
+    --green:     #4ecb8a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--navy-900);
+    color: var(--white-90);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─────────────────── HEADER ─────────────────── */
+  header {
+    background: var(--navy-800);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 300;
+  }
+
+  .logo { font-size: 15px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; }
+  .logo span { color: var(--white-45); font-weight: 400; }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .header-meta { font-size: 12px; color: var(--white-45); }
+
+  /* ─────────────────── HERO ─────────────────── */
+  .hero {
+    background: var(--navy-800);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 48px 40px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .hero-left {}
+
+  .hero-eyebrow {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 12px; font-weight: 500;
+  }
+
+  .hero-title {
+    font-size: clamp(28px, 4vw, 42px); font-weight: 300; color: var(--white);
+    line-height: 1.15; margin-bottom: 10px; letter-spacing: -0.02em;
+  }
+
+  .hero-title em { font-style: normal; font-weight: 600; }
+
+  .hero-sub {
+    color: var(--white-70); font-size: 14px;
+    max-width: 440px; line-height: 1.65;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  /* ─────────────────── BUTTONS ─────────────────── */
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--white);
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-lt);
+    border-color: var(--accent-lt);
+    box-shadow: 0 4px 16px rgba(74,140,255,0.3);
+  }
+
+  .btn-ghost {
+    background: var(--white-06);
+    border-color: var(--border-lt);
+    color: var(--white-70);
+  }
+
+  .btn-ghost:hover {
+    background: var(--white-10);
+    color: var(--white);
+  }
+
+  .btn:active { transform: scale(0.97); }
+
+  /* ─────────────────── STATS BAR ─────────────────── */
+  .stats-bar {
+    background: var(--navy-700);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--white-45);
+  }
+
+  .stat-item strong {
+    color: var(--white-70);
+    font-weight: 500;
+  }
+
+  .stat-sep {
+    width: 1px;
+    height: 16px;
+    background: var(--border-lt);
+  }
+
+  /* ─────────────────── MAIN CONTENT ─────────────────── */
+  .main {
+    padding: 32px 48px 80px;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* ─────────────────── ROWS ─────────────────── */
+  .rows-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .row-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    animation: fadeUp 0.25s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .row-number {
+    flex-shrink: 0;
+    width: 28px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--white-45);
+    font-variant-numeric: tabular-nums;
+    margin-top: 1px;
+  }
+
+  .row-textarea {
+    flex: 1;
+    padding: 10px 14px;
+    background: var(--navy-700);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--white-90);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.6;
+    resize: none;
+    outline: none;
+    overflow: hidden;
+    min-height: 42px;
+    transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+    caret-color: var(--accent-lt);
+  }
+
+  .row-textarea::placeholder {
+    color: var(--white-20);
+  }
+
+  .row-textarea:focus {
+    border-color: rgba(74,140,255,0.5);
+    background: var(--navy-600);
+    box-shadow: 0 0 0 3px rgba(74,140,255,0.08);
+  }
+
+  .row-remove {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--white-45);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 14px;
+  }
+
+  .row-remove:hover {
+    background: rgba(255,107,107,0.12);
+    border-color: rgba(255,107,107,0.3);
+    color: var(--red);
+  }
+
+  .row-remove:active { transform: scale(0.9); }
+
+  /* ─────────────────── ADD ROW BUTTON ─────────────────── */
+  .add-row-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 6px;
+    padding: 10px 14px;
+    background: transparent;
+    border: 1px dashed var(--border-lt);
+    border-radius: 6px;
+    color: var(--white-45);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-left: 38px;
+    width: calc(100% - 38px - 44px);
+  }
+
+  .add-row-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent-lt);
+    background: rgba(74,140,255,0.05);
+  }
+
+  /* ─────────────────── EMPTY STATE ─────────────────── */
+  .empty-state {
+    text-align: center;
+    padding: 60px 0 40px;
+    color: var(--white-45);
+    display: none;
+  }
+
+  .empty-state.show { display: block; }
+
+  .empty-icon {
+    font-size: 36px;
+    margin-bottom: 14px;
+    opacity: 0.5;
+  }
+
+  .empty-state h3 {
+    font-size: 16px; font-weight: 400;
+    color: var(--white-70); margin-bottom: 6px;
+  }
+
+  .empty-state p { font-size: 13px; line-height: 1.6; }
+
+  /* ─────────────────── TOAST ─────────────────── */
+  .toast {
+    position: fixed; bottom: 28px; right: 28px;
+    background: var(--navy-600); border: 1px solid var(--border-lt); color: var(--white-90);
+    padding: 11px 18px; border-radius: 6px; font-size: 13px; z-index: 999;
+    transform: translateY(60px); opacity: 0; transition: transform 0.25s, opacity 0.25s;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .toast.show { transform: translateY(0); opacity: 1; }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-lt); border-radius: 3px; }
+
+  /* ─────────────────── MOBILE ─────────────────── */
+  @media (max-width: 640px) {
+    header { padding: 0 16px; }
+    .logo span { display: none; }
+    .header-meta { display: none; }
+
+    .hero { padding: 28px 16px 24px; }
+    .hero-title { font-size: 24px; }
+    .hero-sub { display: none; }
+    .hero-actions { width: 100%; }
+    .hero-actions .btn { flex: 1; justify-content: center; }
+
+    .stats-bar { padding: 0 16px; gap: 14px; overflow-x: auto; }
+    .stats-bar::-webkit-scrollbar { display: none; }
+
+    .main { padding: 20px 16px 60px; }
+
+    .add-row-btn { margin-left: 0; width: 100%; }
+
+    .toast { left: 16px; right: 16px; bottom: 16px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">{{ logo }} <span>/ Rejalar</span></div>
+  <div class="header-right">
+    <div class="header-meta">Reja boshqaruv tizimi</div>
+  </div>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Boshqaruv · 2025</div>
+    <h1 class="hero-title"><em>Rejalar</em></h1>
+    <p class="hero-sub">Barcha rejalarni bu yerda yozing va boshqaring. Yangi reja qo'shish uchun "Qo'shish" tugmasini bosing.</p>
+  </div>
+  <div class="hero-actions">
+    <button class="btn btn-ghost" onclick="clearAll()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="m19 6-.867 12.142A2 2 0 0 1 16.138 20H7.862a2 2 0 0 1-1.995-1.858L5 6"/><path d="m10 11 0 6"/><path d="m14 11 0 6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+      Barchasini tozalash
+    </button>
+    <button class="btn btn-ghost" onclick="saveRows()" id="saveBtn">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+      Saqlash
+    </button>
+    <button class="btn btn-primary" onclick="addRow()">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Reja qo'shish
+    </button>
+  </div>
+</div>
+
+<!-- Stats Bar -->
+<div class="stats-bar">
+  <div class="stat-item">Jami: <strong id="statTotal">0</strong> ta reja</div>
+  <div class="stat-sep"></div>
+  <div class="stat-item">To'ldirilgan: <strong id="statFilled">0</strong> ta</div>
+  <div class="stat-sep"></div>
+  <div class="stat-item">Bo'sh: <strong id="statEmpty">0</strong> ta</div>
+</div>
+
+<!-- Main -->
+<div class="main">
+
+  <div class="empty-state show" id="emptyState">
+    <div class="empty-icon">📋</div>
+    <h3>Hali hech qanday reja yo'q</h3>
+    <p>Yangi reja qo'shish uchun yuqoridagi<br>"Reja qo'shish" tugmasini bosing.</p>
+  </div>
+
+  <div class="rows-list" id="rowsList"></div>
+
+  <button class="add-row-btn" id="addRowBtn" onclick="addRow()" style="display:none;">
+    <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    Yangi reja qo'shish
+  </button>
+
+</div>
+
+<div class="toast" id="toast">
+  <span id="toastIcon"></span>
+  <span id="toastMsg"></span>
+</div>
+
+<script>
+  let rows = [];
+  let nextId = 1;
+
+  /* ─── Add row ─── */
+  function addRow(text = '') {
+    const id = nextId++;
+    rows.push({ id, text });
+    renderRows();
+    updateStats();
+    toggleEmpty();
+
+    // focus the new textarea
+    setTimeout(() => {
+      const ta = document.getElementById('ta-' + id);
+      if (ta) { ta.focus(); autoResize(ta); }
+    }, 50);
+  }
+
+  /* ─── Remove row ─── */
+  function removeRow(id) {
+    rows = rows.filter(r => r.id !== id);
+    renderRows();
+    updateStats();
+    toggleEmpty();
+    showToast('🗑', 'Reja o\'chirildi');
+  }
+
+  /* ─── Update text ─── */
+  function onInput(id, el) {
+    const row = rows.find(r => r.id === id);
+    if (row) row.text = el.value;
+    autoResize(el);
+    updateStats();
+  }
+
+  /* ─── Auto resize textarea ─── */
+  function autoResize(el) {
+    el.style.height = 'auto';
+    el.style.height = el.scrollHeight + 'px';
+  }
+
+  /* ─── Render ─── */
+  function renderRows() {
+    const list = document.getElementById('rowsList');
+    const addBtn = document.getElementById('addRowBtn');
+
+    if (rows.length === 0) {
+      list.innerHTML = '';
+      addBtn.style.display = 'none';
+      return;
+    }
+
+    addBtn.style.display = 'flex';
+
+    list.innerHTML = rows.map((row, i) => `
+      <div class="row-item" id="row-${row.id}" style="animation-delay:${Math.min(i * 0.03, 0.2)}s">
+        <div class="row-number">${i + 1}</div>
+        <textarea
+          class="row-textarea"
+          id="ta-${row.id}"
+          placeholder="Reja matnini kiriting…"
+          oninput="onInput(${row.id}, this)"
+          onkeydown="onKeyDown(event, ${row.id})"
+          rows="1"
+        >${escapeHtml(row.text)}</textarea>
+        <button class="row-remove" onclick="removeRow(${row.id})" title="O'chirish">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    `).join('');
+
+    // resize all textareas after render
+    rows.forEach(row => {
+      const ta = document.getElementById('ta-' + row.id);
+      if (ta) autoResize(ta);
+    });
+  }
+
+  /* ─── Keyboard: Enter adds new row ─── */
+  function onKeyDown(e, id) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      addRow();
+    }
+  }
+
+  /* ─── Clear all ─── */
+  function clearAll() {
+    if (rows.length === 0) return;
+    rows = [];
+    renderRows();
+    updateStats();
+    toggleEmpty();
+    showToast('✓', 'Barcha rejalar tozalandi');
+  }
+
+  /* ─── Stats ─── */
+  function updateStats() {
+    const total  = rows.length;
+    const filled = rows.filter(r => r.text.trim() !== '').length;
+    const empty  = total - filled;
+    document.getElementById('statTotal').textContent  = total;
+    document.getElementById('statFilled').textContent = filled;
+    document.getElementById('statEmpty').textContent  = empty;
+  }
+
+  /* ─── Empty state ─── */
+  function toggleEmpty() {
+    const el = document.getElementById('emptyState');
+    el.classList.toggle('show', rows.length === 0);
+  }
+
+  /* ─── Helpers ─── */
+  function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  let toastTimer;
+  function showToast(icon, msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toastIcon').textContent = icon;
+    document.getElementById('toastMsg').textContent  = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  /* ─── Save to API ─── */
+  async function saveRows() {
+    const btn = document.getElementById('saveBtn');
+    const originalHTML = btn.innerHTML;
+
+    btn.disabled = true;
+    btn.innerHTML = `
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="animation:spin 0.8s linear infinite"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg>
+      Saqlanmoqda…`;
+
+    const presentation_id = Number(window.location.href.split('/').at(5).split('#').at(0))
+
+    try {
+      const res = await fetch('save-plans', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          presentation_id: presentation_id,
+          plans: rows.map((r, i) => ({ index: i + 1, text: r.text })),
+          savedAt: new Date().toISOString()
+        })
+      });
+
+      if (!res.ok) throw new Error('Server xatosi: ' + res.status);
+
+      btn.innerHTML = `
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        Saqlandi`;
+      btn.style.borderColor = 'rgba(78,203,138,0.5)';
+      btn.style.color = 'var(--green)';
+      showToast('✓', 'Rejalar muvaffaqiyatli saqlandi!');
+
+    } catch (err) {
+      btn.innerHTML = `
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Xato`;
+      btn.style.borderColor = 'rgba(255,107,107,0.5)';
+      btn.style.color = 'var(--red)';
+      showToast('❌', 'Saqlashda xato: ' + err.message);
+    }
+
+    setTimeout(() => {
+      btn.innerHTML = originalHTML;
+      btn.style.borderColor = '';
+      btn.style.color = '';
+      btn.disabled = false;
+    }, 2500);
+  }
+
+  /* ─── Init: start with 3 empty rows ─── */
+  const plans_json = {{ plans | tojson | safe}};
+  for(const plan of plans_json.plans) {
+    addRow(plan.text);
+  }
+</script>
+</body>
+</html>
