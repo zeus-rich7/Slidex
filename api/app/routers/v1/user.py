@@ -4,6 +4,7 @@ from app.db.factory import get_db
 from app.crud import UserCRUD
 from app.models import User
 
+
 router = APIRouter()
 
 @router.get("/users/{user_id}")
